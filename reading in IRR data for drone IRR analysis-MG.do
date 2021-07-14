@@ -4,7 +4,23 @@ clear
 
 log close _all
 
+**If set to 1 use matt anything else will run dani
+global user_matt 1
+
+**Directory locations**
+
+if $user_matt == 1 {
+**Matt**
+global d "C:\Users\mattg\ASU Google Drive\Dissertation\Data\Interrater Reliability Drone Imagery SSO\Cleaned drone sso data to be used for IRR"
+global d2 "C:\Users\mattg\ASU Google Drive\Dissertation\Data\Interrater Reliability Drone Imagery SSO\Cleaned drone sso data to be used for IRR\Bring in Separately"
+global d_out "C:\Users\mattg\ASU Google Drive\Dissertation\Data\Interrater Reliability Drone Imagery SSO"
+}
+else {
+**Dani**
 global d "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\Cleaned drone sso data to be used for IRR"
+global d2 "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\Cleaned drone sso data to be used for IRR\Bring in Separately"
+global d_out "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\"
+}
 
 *reading in all files and turning them into datasets
 local names arenas forston fuentes gomez graham herrera
@@ -100,8 +116,6 @@ foreach n in `names2' {
 }
 
 *files from the "bring in separately folder"
-
-global d2 "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\Cleaned drone sso data to be used for IRR\Bring in Separately"
 
 local names3 fuentes herrera tovar 
 foreach n in `names3' {
@@ -506,4 +520,4 @@ foreach v in littercount graffiticount liquorbottlescount cigtobaccocount pillsc
 order timepoint zone faceblock parcel coder
 
 
-save "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\cleaned drone sso data for missing and cant see values.dta"
+save "$d_out\cleaned drone sso data for missing and cant see values_test.dta"

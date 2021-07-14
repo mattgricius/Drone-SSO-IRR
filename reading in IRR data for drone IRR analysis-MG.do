@@ -22,7 +22,7 @@ global d2 "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Dr
 global d_out "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\"
 }
 
-*reading in all files and turning them into datasets
+/*reading in all files and turning them into datasets
 local names arenas forston fuentes gomez graham herrera
 
 foreach n in `names' {
@@ -194,7 +194,7 @@ foreach n in `names3' {
 	}
 	
 }
-
+*/
 **making one big dataset
 
 *starting with front of building comparison

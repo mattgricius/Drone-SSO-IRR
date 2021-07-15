@@ -334,8 +334,8 @@ foreach v in littercountcantseec graffiticountcantsee paintedovergraffiticount l
   
 **Data Check
 tab `checkvar'yesno
-tab `checkvar'cantseec
-tab `checkvar'yesno `checkvar'cantseec
+tab `checkvar'countcantseec
+tab `checkvar'yesno `checkvar'countcantseec
 
 replace littercountcantseec = "-9" if littercountcantseec == "" & litteryesno == "N"
 replace littercountcantseec = "-9" if litteryesno == "N"

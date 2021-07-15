@@ -542,6 +542,7 @@ replace vacantlot = "N" if vacantlot == "ONO"
 replace highhedgesforprivacy = "N" if highhedgesforprivacy == "8NO"
 replace syringesyesno = "-8" if syringescount == "-8" & syringesyesno == "-9"
 replace syringescount = "-8" if syringescount == "0" & syringesyesno == "-8"
+replace dimebagscount = "-8" if dimebagscount == "8" & dimebagsyesno == "-8"
 *photograph shaded
 rename significantportionsofthephot shade
 replace shade=ltrim(shade)
@@ -607,5 +608,8 @@ replace problem = 1 if syringesyesno == "-9" & syringescount == -8
 replace problemnotes = "can't see n/a mismatch syringes" if syringesyesno == "-9" & syringescount == -8
 replace problem = 1 if syringesyesno == "-8" & syringescount == 0
 replace problemnotes = "can't see n/a mismatch syringes" if syringesyesno == "-8" & syringescount == 0
+*dimebags
+replace problem = 1 if dimebagsyesno == "-8" & dimebagscount == 5
+replace problemnotes = "can't see n/a mismatch dimebags" if dimebagsyesno == "-8" & dimebagscount == 5
 
 save "$d_out\cleaned drone sso data for missing and cant see values_test.dta", replace

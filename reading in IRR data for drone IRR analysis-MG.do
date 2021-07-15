@@ -22,8 +22,8 @@ global d_out "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability
 }
 
 **Declare variable for data consistency check
-local checkvar litter
-local countvar "countcantseec"
+local checkvar syringes
+local countvar "countcantsee"
 
 /*reading in all files and turning them into datasets
 local names arenas forston fuentes gomez graham herrera
@@ -440,6 +440,7 @@ replace liquorbottlescount = "-9" if liquorbottlesyesno == "N"
 replace cigtobaccocount = "-9" if cigtobaccoyesno == "N"
 replace pillscount = "-9" if pillsyesno == "N"
 replace blunthashpipecount = "-9" if blunthashpipeyesno == "N"
+replace syringescount = "-9" if syringesyesno == "N"
 replace dimebagscount = "-9" if dimebagsyesno ==   "N"
 replace condomwrapperporncount = "-9" if condomwrapperpornyesno == "N"
 
@@ -539,7 +540,8 @@ replace dimebagscount = "-8" if dimebagscount == "5" & dimebagsyesno == "-8"
 replace ifyesfortheshedisitdiy = "-8" if shedinbackyard == "Y" & ifyesfortheshedisitdiy == "NOYES" | ifyesfortheshedisitdiy == "S"
 replace vacantlot = "N" if vacantlot == "ONO"
 replace highhedgesforprivacy = "N" if highhedgesforprivacy == "8NO"
-
+replace syringesyesno = "-8" if syringescount == "-8" & syringesyesno == "-9"
+replace syringescount = "-8" if syringescount == "0" & syringesyesno == "-8"
 *photograph shaded
 rename significantportionsofthephot shade
 replace shade=ltrim(shade)
@@ -600,6 +602,10 @@ replace problem = 1 if pillsyesno == "-8" & pillscount == -9
 replace problemnotes = "can't see n/a mismatch pills" if pillsyesno == "-8" & pillscount == -9
 replace problem = 1 if pillsyesno == "-8" & pillscount == 5
 replace problemnotes = "can't see n/a mismatch pills" if pillsyesno == "-8" & cigtobaccocount == 5
-
+*syringes
+replace problem = 1 if syringesyesno == "-9" & syringescount == -8
+replace problemnotes = "can't see n/a mismatch syringes" if syringesyesno == "-9" & syringescount == -8
+replace problem = 1 if syringesyesno == "-8" & syringescount == 0
+replace problemnotes = "can't see n/a mismatch syringes" if syringesyesno == "-8" & syringescount == 0
 
 save "$d_out\cleaned drone sso data for missing and cant see values_test.dta", replace

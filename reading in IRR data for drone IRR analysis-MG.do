@@ -23,6 +23,7 @@ global d_out "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability
 
 **Declare variable for data consistency check
 local checkvar litter
+local countvar "countcantseec"
 
 /*reading in all files and turning them into datasets
 local names arenas forston fuentes gomez graham herrera
@@ -331,11 +332,11 @@ foreach v in littercountcantseec graffiticountcantsee paintedovergraffiticount l
 	replace `v' = "10" if `v' == "10+"
 
 }
-  
+ 
 **Data Check
 tab `checkvar'yesno
-tab `checkvar'countcantseec
-tab `checkvar'yesno `checkvar'countcantseec
+tab `checkvar'`countvar'
+tab `checkvar'yesno `checkvar'`countvar'
 
 replace littercountcantseec = "-9" if littercountcantseec == "" & litteryesno == "N"
 replace littercountcantseec = "-9" if litteryesno == "N"
@@ -407,6 +408,10 @@ replace pillscount = "-9" if pillsyesno == "N"
 replace blunthashpipecount = "-9" if blunthashpipeyesno == "N"
 replace dimebagscount = "-9" if dimebagsyesno ==   "N"
 replace condomwrapperporncount = "-9" if condomwrapperpornyesno == "N"
+
+**Data Check
+tab `checkvar'count
+tab `checkvar'yesno `checkvar'count
 
 replace ifyesabandonedbeingused = ltrim(ifyesabandonedbeingused)
 replace ifyesabandonedbeingused = rtrim(ifyesabandonedbeingused)
@@ -482,8 +487,11 @@ replace graffitiyesno = "NO" if graffitiyesno == "NO 0"
 replace signsofdamagedisrepair="N" if signsofdamagedisrepair == "N-8"
 replace securitysystemsign ="N" if securitysystemsign == "NN"
 replace notresspasssign = "-8" if notresspasssign == "8-"
-replace litteryesno = "N" if littercount == "0"
-replace littercount = "0" if littercount == "-9"
+replace litteryesno = "N" if littercount == "0" & litteryesno == "Y"
+replace littercount = "-9" if littercount == "0"
+*Problem code
+*replace litteryesno = "N" if littercount == "0"
+*replace littercount = "0" if littercount == "-9"
 replace dimebagsyesno = "N" if dimebagscount == "0"
 replace dimebagscount = "-9" if dimebagscount == "0"
 replace dimebagsyesno = "-8" if dimebagsyesno == "SN"
@@ -520,5 +528,45 @@ foreach v in littercount graffiticount liquorbottlescount cigtobaccocount pillsc
 
 order timepoint zone faceblock parcel coder
 
+**Data Check
+tab `checkvar'count
+tab `checkvar'yesno `checkvar'count
 
-save "$d_out\cleaned drone sso data for missing and cant see values_test.dta"
+****flag problems*****
+*litter
+replace problem = 1 if litteryesno == "-8" & littercount == 0
+replace problemnotes = "can't see n/a mismatch litter" if litteryesno == "-8" & littercount == 0
+replace problem = 1 if litteryesno == "N" & littercount == 0
+replace problemnotes = "can't see n/a mismatch litter" if litteryesno == "N" & littercount == 0
+replace problem = 1 if litteryesno == "-9" & littercount == 0
+replace problemnotes = "can't see n/a mismatch litter" if litteryesno == "-9" & littercount == 0
+replace problem = 1 if litteryesno == "-8" & littercount == -9
+replace problemnotes = "can't see n/a mismatch litter" if litteryesno == "-8" & littercount == -9
+
+*graffiti
+replace problem = 1 if graffitiyesno == "-8" & graffiticount == -9
+replace problemnotes = "can't see n/a mismatch graffiti" if graffitiyesno == "-8" & graffiticount == -9
+replace problem = 1 if graffitiyesno == "-8" & graffiticount == 5
+replace problemnotes = "can't see n/a mismatch graffiti" if graffitiyesno == "-8" & graffiticount == 5
+*paintedovergraffiti
+****Note: this count is still a string
+replace problem = 1 if paintedovergraffitiyesno == "-8" & paintedovergraffiticount == "-9"
+replace problemnotes = "can't see n/a mismatch paintedovergraffiti" if paintedovergraffitiyesno == "-8" & paintedovergraffiticount == "-9"
+*liquorbottles
+replace problem = 1 if liquorbottlesyesno == "-8" & liquorbottlescount == -9
+replace problemnotes = "can't see n/a mismatch liquorbottles" if liquorbottlesyesno == "-8" & liquorbottlescount == -9
+replace problem = 1 if liquorbottlesyesno == "-8" & liquorbottlescount == 5
+replace problemnotes = "can't see n/a mismatch liquorbottles" if liquorbottlesyesno == "-8" & liquorbottlescount == 5
+*cigtobacco
+replace problem = 1 if cigtobaccoyesno == "-8" & cigtobaccocount == -9
+replace problemnotes = "can't see n/a mismatch cigtobacco" if cigtobaccoyesno == "-8" & cigtobaccocount == -9
+replace problem = 1 if cigtobaccoyesno == "-8" & cigtobaccocount == 5
+replace problemnotes = "can't see n/a mismatch cigtobacco" if cigtobaccoyesno == "-8" & cigtobaccocount == 5
+*pills
+replace problem = 1 if pillsyesno == "-8" & pillscount == -9
+replace problemnotes = "can't see n/a mismatch pills" if pillsyesno == "-8" & pillscount == -9
+replace problem = 1 if pillsyesno == "-8" & pillscount == 5
+replace problemnotes = "can't see n/a mismatch pills" if pillsyesno == "-8" & cigtobaccocount == 5
+
+
+save "$d_out\cleaned drone sso data for missing and cant see values_test.dta", replace

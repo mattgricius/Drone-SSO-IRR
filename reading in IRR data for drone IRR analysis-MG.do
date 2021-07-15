@@ -8,7 +8,6 @@ log close _all
 global user_matt 1
 
 **Directory locations**
-
 if $user_matt == 1 {
 **Matt**
 global d "C:\Users\mattg\ASU Google Drive\Dissertation\Data\Interrater Reliability Drone Imagery SSO\Cleaned drone sso data to be used for IRR"
@@ -21,6 +20,9 @@ global d "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Dro
 global d2 "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\Cleaned drone sso data to be used for IRR\Bring in Separately"
 global d_out "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\"
 }
+
+**Declare variable for data consistency check
+local checkvar litter
 
 /*reading in all files and turning them into datasets
 local names arenas forston fuentes gomez graham herrera
@@ -329,7 +331,12 @@ foreach v in littercountcantseec graffiticountcantsee paintedovergraffiticount l
 	replace `v' = "10" if `v' == "10+"
 
 }
-   
+  
+**Data Check
+tab `checkvar'yesno
+tab `checkvar'cantseec
+tab `checkvar'yesno `checkvar'cantseec
+
 replace littercountcantseec = "-9" if littercountcantseec == "" & litteryesno == "N"
 replace littercountcantseec = "-9" if litteryesno == "N"
 replace graffiticountcantsee = "-9" if graffiticountcantsee == "" & graffitiyesno == "N"
@@ -364,6 +371,10 @@ rename pillscountcantseecs pillscount
 rename syringescountcantsee syringescount
 rename blunthashpipecountcan blunthashpipecount
 rename dimebagscountcantsee dimebagscount
+
+**Data Check
+tab `checkvar'count
+tab `checkvar'yesno `checkvar'count
 
 local yn paintinpoorcondition newlypainted structuraladaptationsasattach shedinbackyard signsofdamagedisrepair roofinpoorcondition securitysystemsign notresspasssign bewareofdog videocameras securitydoor barredwindow highhedgesforprivacy fence weedsotherovergrowth deadweedsorlandscaping houseabandoned beingrenovated vacantlot dumpinginyard abandonedcarsinyard cantheresidentenjoytheirbac shoppingcarts pool
 
@@ -472,17 +483,7 @@ replace signsofdamagedisrepair="N" if signsofdamagedisrepair == "N-8"
 replace securitysystemsign ="N" if securitysystemsign == "NN"
 replace notresspasssign = "-8" if notresspasssign == "8-"
 replace litteryesno = "N" if littercount == "0"
-
-
-
-
-/*Is this correct?
-Codebook makes it seem "0" is a clear view of the lot and "-9" is obstructive view see page 6 */
 replace littercount = "0" if littercount == "-9"
-
-
-
-
 replace dimebagsyesno = "N" if dimebagscount == "0"
 replace dimebagscount = "-9" if dimebagscount == "0"
 replace dimebagsyesno = "-8" if dimebagsyesno == "SN"

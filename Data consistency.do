@@ -6,7 +6,7 @@ log close _all
 *global d "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\Cleaned drone sso data to be used for IRR"
 global d "C:\Users\mattg\ASU Google Drive\Dissertation\Data\Interrater Reliability Drone Imagery SSO"
 
-use "$d\cleaned drone sso data for missing and cant see values.dta", clear
+use "$d\cleaned drone sso data for missing and cant see values_test.dta", clear
 
 
 

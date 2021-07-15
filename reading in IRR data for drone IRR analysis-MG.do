@@ -198,10 +198,44 @@ foreach n in `names3' {
 	
 }
 */
+
+*Fix problems with some files
+use "$d2\dsso_tovar_4_2A_front.dta", clear
+replace littercountcantseec = "cs" if litteryesno == "cs"
+replace graffiticountcantsee = "cs" if graffitiyesno == "cs"
+replace paintedovergraffiticount = "cs" if paintedovergraffitiyesno == "cs"
+replace liquorbottlescountcan = "cs" if liquorbottlesyesno == "cs"
+replace cigtobaccocountcants = "cs" if cigtobaccoyesno == "cs"
+replace pillscountcantseecs = "cs" if pillsyesno == "cs"
+replace syringescountcantsee = "cs" if syringesyesno == "cs"
+replace blunthashpipecountcan = "cs" if blunthashpipeyesno == "cs"
+replace dimebagscountcantsee = "cs" if dimebagsyesno == "cs"
+replace condomwrapperporncount= "cs" if condomwrapperpornyesno == "cs"
+save "$d2\dsso_tovar_4_2A_front.dta", replace
+use "$d2\dsso_tovar_4_2A_back.dta", clear
+replace liquorbottlescountcan = "cs" if liquorbottlesyesno == "-8"
+replace cigtobaccocountcants = "cs" if cigtobaccoyesno == "-8"
+replace pillscountcantseecs = "cs" if pillsyesno == "-8"
+replace syringescountcantsee = "cs" if syringesyesno == "-8"
+replace blunthashpipecountcan = "cs" if blunthashpipeyesno == "-8"
+replace dimebagscountcantsee = "cs" if dimebagsyesno == "-8"
+replace condomwrapperporncount= "cs" if condomwrapperpornyesno == "-8"
+save "$d2\dsso_tovar_4_2A_back.dta", replace
+use "$d\dsso_jones_3_3_back.dta", clear
+replace littercountcantseec = "-8" if litteryesno == "CS"
+replace graffiticountcantsee = "-8" if graffitiyesno == "CS"
+replace paintedovergraffiticount = "-8" if paintedovergraffitiyesno == "CS"
+replace liquorbottlescountcan = "-8" if liquorbottlesyesno == "CS"
+replace cigtobaccocountcants = "-8" if cigtobaccoyesno == "CS"
+replace pillscountcantseecs = "-8" if pillsyesno == "CS"
+replace syringescountcantsee = "-8" if syringesyesno == "CS"
+replace blunthashpipecountcan = "-8" if blunthashpipeyesno == "CS"
+replace dimebagscountcantsee = "-8" if dimebagsyesno == "CS"
+replace condomwrapperporncount= "-8" if condomwrapperpornyesno == "CS"
+save "$d\dsso_jones_3_3_back", replace
+
 **making one big dataset
-
 *starting with front of building comparison
-
 use "$d\dsso_arenas_1_1_front.dta" , clear 
 append using "$d\dsso_arenas_1_4_front.dta"
 append using "$d\dsso_arenas_2_1_front.dta"
@@ -526,7 +560,7 @@ foreach v in littercount graffiticount liquorbottlescount cigtobaccocount pillsc
 
 }
 
-order timepoint zone faceblock parcel coder
+order timepoint zone faceblock parcel coder front problem problemnotes
 
 **Data Check
 tab `checkvar'count
@@ -542,7 +576,6 @@ replace problem = 1 if litteryesno == "-9" & littercount == 0
 replace problemnotes = "can't see n/a mismatch litter" if litteryesno == "-9" & littercount == 0
 replace problem = 1 if litteryesno == "-8" & littercount == -9
 replace problemnotes = "can't see n/a mismatch litter" if litteryesno == "-8" & littercount == -9
-
 *graffiti
 replace problem = 1 if graffitiyesno == "-8" & graffiticount == -9
 replace problemnotes = "can't see n/a mismatch graffiti" if graffitiyesno == "-8" & graffiticount == -9

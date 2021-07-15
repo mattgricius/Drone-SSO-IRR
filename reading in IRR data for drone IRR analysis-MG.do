@@ -556,7 +556,7 @@ destring littercount graffiticount liquorbottlescount cigtobaccocount pillscount
 
 label def count -9 "Not applicable" -8 "Can't see" 5 "5 or more"
 
-foreach v in littercount graffiticount liquorbottlescount cigtobaccocount pillscount syringescount blunthashpipecount dimebagscount {
+foreach v in littercount graffiticount liquorbottlescount cigtobaccocount pillscount syringescount blunthashpipecount dimebagscount paintedovergraffiti {
 
 	replace `v' = 5 if `v' >=5
 	label val `v' count
@@ -568,48 +568,5 @@ order timepoint zone faceblock parcel coder front problem problemnotes
 **Data Check
 tab `checkvar'count
 tab `checkvar'yesno `checkvar'count
-
-****flag problems*****
-*litter
-replace problem = 1 if litteryesno == "-8" & littercount == 0
-replace problemnotes = "can't see n/a mismatch litter" if litteryesno == "-8" & littercount == 0
-replace problem = 1 if litteryesno == "N" & littercount == 0
-replace problemnotes = "can't see n/a mismatch litter" if litteryesno == "N" & littercount == 0
-replace problem = 1 if litteryesno == "-9" & littercount == 0
-replace problemnotes = "can't see n/a mismatch litter" if litteryesno == "-9" & littercount == 0
-replace problem = 1 if litteryesno == "-8" & littercount == -9
-replace problemnotes = "can't see n/a mismatch litter" if litteryesno == "-8" & littercount == -9
-*graffiti
-replace problem = 1 if graffitiyesno == "-8" & graffiticount == -9
-replace problemnotes = "can't see n/a mismatch graffiti" if graffitiyesno == "-8" & graffiticount == -9
-replace problem = 1 if graffitiyesno == "-8" & graffiticount == 5
-replace problemnotes = "can't see n/a mismatch graffiti" if graffitiyesno == "-8" & graffiticount == 5
-*paintedovergraffiti
-****Note: this count is still a string
-replace problem = 1 if paintedovergraffitiyesno == "-8" & paintedovergraffiticount == "-9"
-replace problemnotes = "can't see n/a mismatch paintedovergraffiti" if paintedovergraffitiyesno == "-8" & paintedovergraffiticount == "-9"
-*liquorbottles
-replace problem = 1 if liquorbottlesyesno == "-8" & liquorbottlescount == -9
-replace problemnotes = "can't see n/a mismatch liquorbottles" if liquorbottlesyesno == "-8" & liquorbottlescount == -9
-replace problem = 1 if liquorbottlesyesno == "-8" & liquorbottlescount == 5
-replace problemnotes = "can't see n/a mismatch liquorbottles" if liquorbottlesyesno == "-8" & liquorbottlescount == 5
-*cigtobacco
-replace problem = 1 if cigtobaccoyesno == "-8" & cigtobaccocount == -9
-replace problemnotes = "can't see n/a mismatch cigtobacco" if cigtobaccoyesno == "-8" & cigtobaccocount == -9
-replace problem = 1 if cigtobaccoyesno == "-8" & cigtobaccocount == 5
-replace problemnotes = "can't see n/a mismatch cigtobacco" if cigtobaccoyesno == "-8" & cigtobaccocount == 5
-*pills
-replace problem = 1 if pillsyesno == "-8" & pillscount == -9
-replace problemnotes = "can't see n/a mismatch pills" if pillsyesno == "-8" & pillscount == -9
-replace problem = 1 if pillsyesno == "-8" & pillscount == 5
-replace problemnotes = "can't see n/a mismatch pills" if pillsyesno == "-8" & cigtobaccocount == 5
-*syringes
-replace problem = 1 if syringesyesno == "-9" & syringescount == -8
-replace problemnotes = "can't see n/a mismatch syringes" if syringesyesno == "-9" & syringescount == -8
-replace problem = 1 if syringesyesno == "-8" & syringescount == 0
-replace problemnotes = "can't see n/a mismatch syringes" if syringesyesno == "-8" & syringescount == 0
-*dimebags
-replace problem = 1 if dimebagsyesno == "-8" & dimebagscount == 5
-replace problemnotes = "can't see n/a mismatch dimebags" if dimebagsyesno == "-8" & dimebagscount == 5
 
 save "$d_out\cleaned drone sso data for missing and cant see values_test.dta", replace

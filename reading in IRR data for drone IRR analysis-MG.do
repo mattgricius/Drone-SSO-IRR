@@ -491,6 +491,12 @@ replace ifyesusedfordumping = "-8" if ifyesusedfordumping == "CS"
 replace ifyesusedfordumping = "-9" if ifyesusedfordumping == "N/A"
 replace ifyesusedfordumping = "-9" if ifyesusedfordumping == "9"
 
+*shed skip pattern
+replace ifyesfortheshedisitdiy = "-9" if shedinbackyard == "N"
+replace ifyesfortheshedisitdiy = "-9" if shedinbackyard == "-9"
+replace ifyesfortheshedisitpref = "-9" if shedinbackyard == "N"
+replace ifyesfortheshedisitpref = "-9" if shedinbackyard == "-9"
+
 *vacant lot skip pattern
 replace ifyesvacantlotbeingused = "-9" if vacantlot == "-9"
 replace ifyesvacantlotbeingused = "-9" if vacantlot == "N"
@@ -543,6 +549,10 @@ replace highhedgesforprivacy = "N" if highhedgesforprivacy == "8NO"
 replace syringesyesno = "-8" if syringescount == "-8" & syringesyesno == "-9"
 replace syringescount = "-8" if syringescount == "0" & syringesyesno == "-8"
 replace dimebagscount = "-8" if dimebagscount == "8" & dimebagsyesno == "-8"
+replace ifyesfortheshedisitdiy = "-8" if ifyesfortheshedisitdiy == "-9" & shedinbackyard == "-8"
+replace ifyesfortheshedisitdiy = "-8" if ifyesfortheshedisitdiy == "-9" & shedinbackyard == "Y"
+replace ifyesfortheshedisitpref = "-8" if ifyesfortheshedisitpref == "-9" & shedinbackyard == "-8"
+replace ifyesfortheshedisitpref = "-8" if ifyesfortheshedisitpref == "-9" & shedinbackyard == "Y"
 *photograph shaded
 rename significantportionsofthephot shade
 replace shade=ltrim(shade)
@@ -552,11 +562,11 @@ replace shade = "Y" if shade == "YES"
 replace shade = "N" if shade == "NO"
 label var shade "Is significant portions of the photo covered in shade?"
 
-destring littercount graffiticount liquorbottlescount cigtobaccocount pillscount syringescount blunthashpipecount dimebagscount, replace
+destring littercount graffiticount liquorbottlescount cigtobaccocount pillscount syringescount blunthashpipecount dimebagscount paintedovergraffiticount, replace
 
 label def count -9 "Not applicable" -8 "Can't see" 5 "5 or more"
 
-foreach v in littercount graffiticount liquorbottlescount cigtobaccocount pillscount syringescount blunthashpipecount dimebagscount paintedovergraffiti {
+foreach v in littercount graffiticount liquorbottlescount cigtobaccocount pillscount syringescount blunthashpipecount dimebagscount paintedovergraffiticount{
 
 	replace `v' = 5 if `v' >=5
 	label val `v' count
@@ -568,5 +578,9 @@ order timepoint zone faceblock parcel coder front problem problemnotes
 **Data Check
 tab `checkvar'count
 tab `checkvar'yesno `checkvar'count
+tab shedinbackyard ifyesfortheshedisitdiy
+tab shedinbackyard ifyesfortheshedisitpref
 
 save "$d_out\cleaned drone sso data for missing and cant see values_test.dta", replace
+
+do "C:\Users\mattg\ASU Google Drive\Dissertation\Drone SSO IRR\Data consistency.do"

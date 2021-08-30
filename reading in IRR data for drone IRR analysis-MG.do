@@ -554,6 +554,15 @@ replace ifyesfortheshedisitdiy = "-8" if ifyesfortheshedisitdiy == "-9" & shedin
 replace ifyesfortheshedisitpref = "-8" if ifyesfortheshedisitpref == "-9" & shedinbackyard == "-8"
 replace ifyesfortheshedisitpref = "-8" if ifyesfortheshedisitpref == "-9" & shedinbackyard == "Y"
 replace barredwindow = "-8" if barredwindow == "-"
+replace ifyespoolisclear = "-8" if ifyespoolisclear == "-9" & pool == "-8"
+replace ifyespoolisclear = "-8" if ifyespoolisclear == "-9" & pool == "Y"
+replace ifyespoolisgreen = "-8" if ifyespoolisgreen == "-9" & pool == "-8"
+replace ifyespoolisgreen = "-8" if ifyespoolisgreen == "-9" & pool == "Y"
+replace ifyesdoesnthavewater = "-8" if ifyesdoesnthavewater == "-9" & pool == "-8"
+replace ifyesdoesnthavewater = "-8" if ifyesdoesnthavewater == "-9" & pool == "Y"
+replace ifyesusedfordumping = "-8" if ifyesusedfordumping == "-9" & pool == "-8"
+replace ifyesusedfordumping = "-8" if ifyesusedfordumping == "-9" & pool == "Y"
+
 *photograph shaded
 rename significantportionsofthephot shade
 replace shade=ltrim(shade)

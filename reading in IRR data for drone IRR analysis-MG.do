@@ -8,7 +8,6 @@ log close _all
 global user_matt 1
 
 **Directory locations**
-
 if $user_matt == 1 {
 **Matt**
 global d "C:\Users\mattg\ASU Google Drive\Dissertation\Data\Interrater Reliability Drone Imagery SSO\Cleaned drone sso data to be used for IRR"
@@ -21,6 +20,10 @@ global d "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Dro
 global d2 "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\Cleaned drone sso data to be used for IRR\Bring in Separately"
 global d_out "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\"
 }
+
+**Declare variable for data consistency check
+local checkvar syringes
+local countvar "countcantsee"
 
 /*reading in all files and turning them into datasets
 local names arenas forston fuentes gomez graham herrera
@@ -195,10 +198,44 @@ foreach n in `names3' {
 	
 }
 */
+
+*Fix problems with some files
+use "$d2\dsso_tovar_4_2A_front.dta", clear
+replace littercountcantseec = "cs" if litteryesno == "cs"
+replace graffiticountcantsee = "cs" if graffitiyesno == "cs"
+replace paintedovergraffiticount = "cs" if paintedovergraffitiyesno == "cs"
+replace liquorbottlescountcan = "cs" if liquorbottlesyesno == "cs"
+replace cigtobaccocountcants = "cs" if cigtobaccoyesno == "cs"
+replace pillscountcantseecs = "cs" if pillsyesno == "cs"
+replace syringescountcantsee = "cs" if syringesyesno == "cs"
+replace blunthashpipecountcan = "cs" if blunthashpipeyesno == "cs"
+replace dimebagscountcantsee = "cs" if dimebagsyesno == "cs"
+replace condomwrapperporncount= "cs" if condomwrapperpornyesno == "cs"
+save "$d2\dsso_tovar_4_2A_front.dta", replace
+use "$d2\dsso_tovar_4_2A_back.dta", clear
+replace liquorbottlescountcan = "cs" if liquorbottlesyesno == "-8"
+replace cigtobaccocountcants = "cs" if cigtobaccoyesno == "-8"
+replace pillscountcantseecs = "cs" if pillsyesno == "-8"
+replace syringescountcantsee = "cs" if syringesyesno == "-8"
+replace blunthashpipecountcan = "cs" if blunthashpipeyesno == "-8"
+replace dimebagscountcantsee = "cs" if dimebagsyesno == "-8"
+replace condomwrapperporncount= "cs" if condomwrapperpornyesno == "-8"
+save "$d2\dsso_tovar_4_2A_back.dta", replace
+use "$d\dsso_jones_3_3_back.dta", clear
+replace littercountcantseec = "-8" if litteryesno == "CS"
+replace graffiticountcantsee = "-8" if graffitiyesno == "CS"
+replace paintedovergraffiticount = "-8" if paintedovergraffitiyesno == "CS"
+replace liquorbottlescountcan = "-8" if liquorbottlesyesno == "CS"
+replace cigtobaccocountcants = "-8" if cigtobaccoyesno == "CS"
+replace pillscountcantseecs = "-8" if pillsyesno == "CS"
+replace syringescountcantsee = "-8" if syringesyesno == "CS"
+replace blunthashpipecountcan = "-8" if blunthashpipeyesno == "CS"
+replace dimebagscountcantsee = "-8" if dimebagsyesno == "CS"
+replace condomwrapperporncount= "-8" if condomwrapperpornyesno == "CS"
+save "$d\dsso_jones_3_3_back", replace
+
 **making one big dataset
-
 *starting with front of building comparison
-
 use "$d\dsso_arenas_1_1_front.dta" , clear 
 append using "$d\dsso_arenas_1_4_front.dta"
 append using "$d\dsso_arenas_2_1_front.dta"
@@ -329,7 +366,12 @@ foreach v in littercountcantseec graffiticountcantsee paintedovergraffiticount l
 	replace `v' = "10" if `v' == "10+"
 
 }
-   
+ 
+**Data Check
+tab `checkvar'yesno
+tab `checkvar'`countvar'
+tab `checkvar'yesno `checkvar'`countvar'
+
 replace littercountcantseec = "-9" if littercountcantseec == "" & litteryesno == "N"
 replace littercountcantseec = "-9" if litteryesno == "N"
 replace graffiticountcantsee = "-9" if graffiticountcantsee == "" & graffitiyesno == "N"
@@ -365,6 +407,10 @@ rename syringescountcantsee syringescount
 rename blunthashpipecountcan blunthashpipecount
 rename dimebagscountcantsee dimebagscount
 
+**Data Check
+tab `checkvar'count
+tab `checkvar'yesno `checkvar'count
+
 local yn paintinpoorcondition newlypainted structuraladaptationsasattach shedinbackyard signsofdamagedisrepair roofinpoorcondition securitysystemsign notresspasssign bewareofdog videocameras securitydoor barredwindow highhedgesforprivacy fence weedsotherovergrowth deadweedsorlandscaping houseabandoned beingrenovated vacantlot dumpinginyard abandonedcarsinyard cantheresidentenjoytheirbac shoppingcarts pool
 
 foreach v in `yn' {
@@ -394,8 +440,13 @@ replace liquorbottlescount = "-9" if liquorbottlesyesno == "N"
 replace cigtobaccocount = "-9" if cigtobaccoyesno == "N"
 replace pillscount = "-9" if pillsyesno == "N"
 replace blunthashpipecount = "-9" if blunthashpipeyesno == "N"
+replace syringescount = "-9" if syringesyesno == "N"
 replace dimebagscount = "-9" if dimebagsyesno ==   "N"
 replace condomwrapperporncount = "-9" if condomwrapperpornyesno == "N"
+
+**Data Check
+tab `checkvar'count
+tab `checkvar'yesno `checkvar'count
 
 replace ifyesabandonedbeingused = ltrim(ifyesabandonedbeingused)
 replace ifyesabandonedbeingused = rtrim(ifyesabandonedbeingused)
@@ -440,6 +491,12 @@ replace ifyesusedfordumping = "-8" if ifyesusedfordumping == "CS"
 replace ifyesusedfordumping = "-9" if ifyesusedfordumping == "N/A"
 replace ifyesusedfordumping = "-9" if ifyesusedfordumping == "9"
 
+*shed skip pattern
+replace ifyesfortheshedisitdiy = "-9" if shedinbackyard == "N"
+replace ifyesfortheshedisitdiy = "-9" if shedinbackyard == "-9"
+replace ifyesfortheshedisitpref = "-9" if shedinbackyard == "N"
+replace ifyesfortheshedisitpref = "-9" if shedinbackyard == "-9"
+
 *vacant lot skip pattern
 replace ifyesvacantlotbeingused = "-9" if vacantlot == "-9"
 replace ifyesvacantlotbeingused = "-9" if vacantlot == "N"
@@ -471,18 +528,11 @@ replace graffitiyesno = "NO" if graffitiyesno == "NO 0"
 replace signsofdamagedisrepair="N" if signsofdamagedisrepair == "N-8"
 replace securitysystemsign ="N" if securitysystemsign == "NN"
 replace notresspasssign = "-8" if notresspasssign == "8-"
-replace litteryesno = "N" if littercount == "0"
-
-
-
-
-/*Is this correct?
-Codebook makes it seem "0" is a clear view of the lot and "-9" is obstructive view see page 6 */
-replace littercount = "0" if littercount == "-9"
-
-
-
-
+replace litteryesno = "N" if littercount == "0" & litteryesno == "Y"
+replace littercount = "-9" if littercount == "0"
+*Problem code
+*replace litteryesno = "N" if littercount == "0"
+*replace littercount = "0" if littercount == "-9"
 replace dimebagsyesno = "N" if dimebagscount == "0"
 replace dimebagscount = "-9" if dimebagscount == "0"
 replace dimebagsyesno = "-8" if dimebagsyesno == "SN"
@@ -496,6 +546,22 @@ replace dimebagscount = "-8" if dimebagscount == "5" & dimebagsyesno == "-8"
 replace ifyesfortheshedisitdiy = "-8" if shedinbackyard == "Y" & ifyesfortheshedisitdiy == "NOYES" | ifyesfortheshedisitdiy == "S"
 replace vacantlot = "N" if vacantlot == "ONO"
 replace highhedgesforprivacy = "N" if highhedgesforprivacy == "8NO"
+replace syringesyesno = "-8" if syringescount == "-8" & syringesyesno == "-9"
+replace syringescount = "-8" if syringescount == "0" & syringesyesno == "-8"
+replace dimebagscount = "-8" if dimebagscount == "8" & dimebagsyesno == "-8"
+replace ifyesfortheshedisitdiy = "-8" if ifyesfortheshedisitdiy == "-9" & shedinbackyard == "-8"
+replace ifyesfortheshedisitdiy = "-8" if ifyesfortheshedisitdiy == "-9" & shedinbackyard == "Y"
+replace ifyesfortheshedisitpref = "-8" if ifyesfortheshedisitpref == "-9" & shedinbackyard == "-8"
+replace ifyesfortheshedisitpref = "-8" if ifyesfortheshedisitpref == "-9" & shedinbackyard == "Y"
+replace barredwindow = "-8" if barredwindow == "-"
+replace ifyespoolisclear = "-8" if ifyespoolisclear == "-9" & pool == "-8"
+replace ifyespoolisclear = "-8" if ifyespoolisclear == "-9" & pool == "Y"
+replace ifyespoolisgreen = "-8" if ifyespoolisgreen == "-9" & pool == "-8"
+replace ifyespoolisgreen = "-8" if ifyespoolisgreen == "-9" & pool == "Y"
+replace ifyesdoesnthavewater = "-8" if ifyesdoesnthavewater == "-9" & pool == "-8"
+replace ifyesdoesnthavewater = "-8" if ifyesdoesnthavewater == "-9" & pool == "Y"
+replace ifyesusedfordumping = "-8" if ifyesusedfordumping == "-9" & pool == "-8"
+replace ifyesusedfordumping = "-8" if ifyesusedfordumping == "-9" & pool == "Y"
 
 *photograph shaded
 rename significantportionsofthephot shade
@@ -506,18 +572,25 @@ replace shade = "Y" if shade == "YES"
 replace shade = "N" if shade == "NO"
 label var shade "Is significant portions of the photo covered in shade?"
 
-destring littercount graffiticount liquorbottlescount cigtobaccocount pillscount syringescount blunthashpipecount dimebagscount, replace
+destring littercount graffiticount liquorbottlescount cigtobaccocount pillscount syringescount blunthashpipecount dimebagscount paintedovergraffiticount, replace
 
 label def count -9 "Not applicable" -8 "Can't see" 5 "5 or more"
 
-foreach v in littercount graffiticount liquorbottlescount cigtobaccocount pillscount syringescount blunthashpipecount dimebagscount {
+foreach v in littercount graffiticount liquorbottlescount cigtobaccocount pillscount syringescount blunthashpipecount dimebagscount paintedovergraffiticount{
 
 	replace `v' = 5 if `v' >=5
 	label val `v' count
 
 }
 
-order timepoint zone faceblock parcel coder
+order timepoint zone faceblock parcel coder front problem problemnotes
 
+**Data Check
+tab `checkvar'count
+tab `checkvar'yesno `checkvar'count
+tab shedinbackyard ifyesfortheshedisitdiy
+tab shedinbackyard ifyesfortheshedisitpref
 
-save "$d_out\cleaned drone sso data for missing and cant see values_test.dta"
+save "$d_out\cleaned drone sso data for missing and cant see values_test.dta", replace
+
+do "C:\Users\mattg\ASU Google Drive\Dissertation\Drone SSO IRR\Data consistency.do"

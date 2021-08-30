@@ -553,6 +553,7 @@ replace ifyesfortheshedisitdiy = "-8" if ifyesfortheshedisitdiy == "-9" & shedin
 replace ifyesfortheshedisitdiy = "-8" if ifyesfortheshedisitdiy == "-9" & shedinbackyard == "Y"
 replace ifyesfortheshedisitpref = "-8" if ifyesfortheshedisitpref == "-9" & shedinbackyard == "-8"
 replace ifyesfortheshedisitpref = "-8" if ifyesfortheshedisitpref == "-9" & shedinbackyard == "Y"
+replace barredwindow = "-8" if barredwindow == "-"
 *photograph shaded
 rename significantportionsofthephot shade
 replace shade=ltrim(shade)

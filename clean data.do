@@ -586,11 +586,26 @@ foreach v in littercount graffiticount liquorbottlescount cigtobaccocount pillsc
 
 order timepoint zone faceblock parcel coder front problem problemnotes
 
-**Data Check
+*Data Check
 tab `checkvar'count
 tab `checkvar'yesno `checkvar'count
 tab shedinbackyard ifyesfortheshedisitdiy
 tab shedinbackyard ifyesfortheshedisitpref
+
+*Fix parcel strings
+clonevar parcel_name = parcel
+replace parcel = subinstr(parcel, "Front of ", "", .)
+replace parcel = subinstr(parcel, "Side  of ", "", .)
+replace parcel = subinstr(parcel, "Side of ", "", .)
+
+*Convert coder string into numerical
+encode coder, gen(coderid)
+
+*Include front and back in parcel string
+clonevar parcel_fb = parcel
+replace parcel_fb = "f" + parcel_fb if front == 1
+replace parcel_fb = "b" + parcel_fb if front == 0
+
 
 save "$d_out\cleaned drone sso data for missing and cant see values_test.dta", replace
 

@@ -9,16 +9,14 @@ set trace on
 
 **Create unique id for coder pairs using timepoint, faceblock, and zone
 gen coding_id = .
-forval i=1/1317 {
-	forval j=1/4 {
-		forval k=1/4 {
-			forval m=1/16 {
-				if coding_id == . {
-					replace coding_id = `i' if timepoint == "`j'" & zone == "`k'" & faceblock == "`k'.`m'"
-					
-				}
-			}	
-		}
+gen id = 1
+levelsof faceblock, local(fb)
+forval t=1/4 {
+	foreach i in `fb' {
+				replace coding_id = id if timepoint == "`t'" & faceblock == "`i'" & coding_id == .
+				replace id = id + 1
 	}
 }
 	
+order coding_id timepoint faceblock
+sort coding_id

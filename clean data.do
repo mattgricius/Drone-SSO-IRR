@@ -606,6 +606,10 @@ clonevar parcel_fb = parcel
 replace parcel_fb = "f" + parcel_fb if front == 1
 replace parcel_fb = "b" + parcel_fb if front == 0
 
+*Duplicate detection
+duplicates tag parcel_fb timepoint faceblock coder, gen(dup)
+order dup
+sort dup
 
 save "$d_out\cleaned drone sso data for missing and cant see values_test.dta", replace
 

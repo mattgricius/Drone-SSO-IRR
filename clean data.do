@@ -198,8 +198,7 @@ foreach n in `names3' {
 	}
 	
 }
-*/
-
+*/	
 *Fix problems with some files
 use "$d2\dsso_tovar_4_2A_front.dta", clear
 replace littercountcantseec = "cs" if litteryesno == "cs"
@@ -234,6 +233,111 @@ replace blunthashpipecountcan = "-8" if blunthashpipeyesno == "CS"
 replace dimebagscountcantsee = "-8" if dimebagsyesno == "CS"
 replace condomwrapperporncount= "-8" if condomwrapperpornyesno == "CS"
 save "$d\dsso_jones_3_3_back", replace
+
+*Fix parcels 4125 & 9007 - parcels have same number but two distinct areas
+use "$d\dsso_arenas_1_4_back.dta", clear
+replace parcel = "9215A" if _n == 28 & parcel == "9215"
+replace parcel = "9215B" if _n == 38 & parcel == "9215"
+save "$d\dsso_arenas_1_4_back.dta", replace
+
+use "$d\dsso_arenas_1_4_front.dta", clear
+replace parcel = "9215A" if _n == 31 & parcel == "9215"
+replace parcel = "9215B" if _n == 41 & parcel == "9215"
+save "$d\dsso_arenas_1_4_front.dta", replace
+
+use "$d\dsso_arenas_4_4_back.dta", clear
+replace parcel = "9215A" if _n == 28 & parcel == "9215"
+replace parcel = "9215B" if _n == 38 & parcel == "9215"
+replace parcel = "9215C" if _n == 39 & parcel == "9215"
+save "$d\dsso_arenas_4_4_back.dta", replace
+
+use "$d\dsso_arenas_4_4_front.dta", clear
+replace parcel = "9215A" if _n == 32 & parcel == "9215"
+replace parcel = "9215B" if _n == 42 & parcel == "9215"
+replace parcel = "9215C" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d\dsso_arenas_4_4_front.dta", replace
+
+use "$d\dsso_forston_3_4_back.dta", clear
+replace parcel = "9215A" if _n == 38 & parcel == "9215"
+replace parcel = "9215B" if _n == 39 & parcel == "9215"
+save "$d\dsso_forston_3_4_back.dta", replace
+
+use "$d\dsso_forston_3_4_front.dta", clear
+replace parcel = "9215A" if _n == 42 & parcel == "9215"
+replace parcel = "9215B" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d\dsso_forston_3_4_front.dta", replace
+
+use "$d\dsso_fuentes_2_4_back.dta", clear
+replace parcel = "9215A" if _n == 38 & parcel == "9215"
+replace parcel = "9215B" if _n == 39 & parcel == "9215"
+save "$d\dsso_fuentes_2_4_back.dta", replace
+
+use "$d2\dsso_fuentes_2_4B_front.dta", clear
+replace parcel = "9215A" if _n == 42 & parcel == "9215"
+replace parcel = "9215B" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d2\dsso_fuentes_2_4B_front.dta", replace
+
+use "$d\dsso_gomez_3_4_back.dta", clear
+replace parcel = "9215A" if _n == 38 & parcel == "9215"
+replace parcel = "9215B" if _n == 39 & parcel == "9215"
+save "$d\dsso_gomez_3_4_back.dta", replace
+
+use "$d\dsso_gomez_3_4_front.dta", clear
+replace parcel = "9215A" if _n == 42 & parcel == "9215"
+replace parcel = "9215B" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d\dsso_gomez_3_4_front.dta", replace
+
+use "$d\dsso_jones_1_4_back.dta", clear
+replace parcel = "9215A" if _n == 28 & parcel == "9215"
+replace parcel = "9215B" if _n == 38 & parcel == "9215"
+replace parcel = "9215C" if _n == 39 & parcel == "9215"
+save "$d\dsso_jones_1_4_back.dta", replace
+
+use "$d\dsso_jones_1_4_front.dta", clear
+replace parcel = "9215A" if _n == 32 & parcel == "9215"
+replace parcel = "9215B" if _n == 42 & parcel == "9215"
+replace parcel = "9215C" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d\dsso_jones_1_4_front.dta", replace
+
+use "$d\dsso_topete_4_4_back.dta", clear
+replace parcel = "9215A" if _n == 28 & parcel == "9215"
+replace parcel = "9215B" if _n == 38 & parcel == "9215"
+replace parcel = "9215C" if _n == 39 & parcel == "9215"
+save "$d\dsso_topete_4_4_back.dta", replace
+
+use "$d\dsso_topete_4_4_front.dta", clear
+replace parcel = "9215A" if _n == 32 & parcel == "9215"
+replace parcel = "9215B" if _n == 42 & parcel == "9215"
+replace parcel = "9215C" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d\dsso_topete_4_4_front.dta", replace
+
+/*
+use "$d\dsso_tovar_2_4A_back.dta", clear
+replace parcel = "9215A" if _n == 28 & parcel == "9215"
+replace parcel = "9215B" if _n == 38 & parcel == "9215"
+replace parcel = "9215C" if _n == 39 & parcel == "9215"
+save "$d\dsso_tovar_2_4A_back.dta", replace
+
+use "$d\dsso_tovar_2_4B_front.dta", clear
+replace parcel = "9215A" if _n == 32 & parcel == "9215"
+replace parcel = "9215B" if _n == 42 & parcel == "9215"
+replace parcel = "9215C" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d\dsso_tovar_2_4B_front.dta", replace
+*/
 
 **making one big dataset
 *starting with front of building comparison
@@ -610,6 +714,8 @@ replace parcel_fb = "b" + parcel_fb if front == 0
 duplicates tag parcel_fb timepoint faceblock coder, gen(dup)
 order dup
 sort dup
+
+duplicates list parcel_fb timepoint faceblock coder
 
 save "$d_out\cleaned drone sso data for missing and cant see values_test.dta", replace
 

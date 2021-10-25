@@ -9,7 +9,7 @@ set trace on
 
 **Create unique id for coder pairs using timepoint, faceblock, and zone
 gen coding_id = .
-gen id = 1
+gen id = 0
 levelsof faceblock, local(fb)
 forval t=1/4 {
 	foreach i in `fb' {

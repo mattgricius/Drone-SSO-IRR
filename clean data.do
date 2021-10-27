@@ -199,7 +199,84 @@ foreach n in `names3' {
 	
 }
 */
+*Bring in another set	
+local names4 tovar 
+foreach n in `names4' {
+	forvalues z=1(1)4 {
 
+		forvalues b=1(1)4 {
+			
+			capture confirm file "$d\dsso_`n'_`z'_`b'A_front.xls.xlsx"
+			
+			if _rc == 0 {
+			
+				clear
+				import excel "$d\dsso_`n'_`z'_`b'A_front.xls.xlsx", firstrow case(lower) allstring
+				gen coder = "`n'"
+				gen timepoint = "`z'"
+				gen zone = "`b'"
+				gen space = "Front"
+				gen front = 1
+				gen back = 0
+				save "$d\dsso_`n'_`z'_`b'A_front.dta", replace
+				clear
+				
+			}
+			
+			capture confirm file "$d\dsso_`n'_`z'_`b'A_back.xls.xlsx"
+			
+			if _rc == 0 {
+			
+				import excel "$d\dsso_`n'_`z'_`b'A_back.xls.xlsx", firstrow case(lower) allstring
+				gen coder = "`n'"
+				gen timepoint = "`z'"
+				gen zone = "`b'"
+				gen space = "Back"
+				gen front = 0
+				gen back = 1
+				save "$d\dsso_`n'_`z'_`b'A_back.dta", replace
+				clear
+				
+			}
+			
+			capture confirm file "$d\dsso_`n'_`z'_`b'B_front.xls.xlsx"
+			
+			if _rc == 0 {
+			
+				clear
+				import excel "$d\dsso_`n'_`z'_`b'B_front.xls.xlsx", firstrow case(lower) allstring
+				gen coder = "`n'"
+				gen timepoint = "`z'"
+				gen zone = "`b'"
+				gen space = "Front"
+				gen front = 1
+				gen back = 0
+				save "$d\dsso_`n'_`z'_`b'B_front.dta", replace
+				clear
+				
+			}
+			
+			capture confirm file "$d\dsso_`n'_`z'_`b'B_back.xls.xlsx"
+			
+			if _rc == 0 {
+			
+				import excel "$d\dsso_`n'_`z'_`b'B_back.xls.xlsx", firstrow case(lower) allstring
+				gen coder = "`n'"
+				gen timepoint = "`z'"
+				gen zone = "`b'"
+				gen space = "Back"
+				gen front = 0
+				gen back = 1
+				save "$d\dsso_`n'_`z'_`b'B_back.dta", replace
+				clear
+				
+			}
+								
+		}
+
+	}
+	
+}
 *Fix problems with some files
 use "$d2\dsso_tovar_4_2A_front.dta", clear
 replace littercountcantseec = "cs" if litteryesno == "cs"
@@ -234,6 +311,111 @@ replace blunthashpipecountcan = "-8" if blunthashpipeyesno == "CS"
 replace dimebagscountcantsee = "-8" if dimebagsyesno == "CS"
 replace condomwrapperporncount= "-8" if condomwrapperpornyesno == "CS"
 save "$d\dsso_jones_3_3_back", replace
+
+*Fix parcels 4125 & 9007 - parcels have same number but two distinct areas
+use "$d\dsso_arenas_1_4_back.dta", clear
+replace parcel = "9215A" if _n == 28 & parcel == "9215"
+replace parcel = "9215B" if _n == 38 & parcel == "9215"
+save "$d\dsso_arenas_1_4_back.dta", replace
+
+use "$d\dsso_arenas_1_4_front.dta", clear
+replace parcel = "9215A" if _n == 31 & parcel == "9215"
+replace parcel = "9215B" if _n == 41 & parcel == "9215"
+save "$d\dsso_arenas_1_4_front.dta", replace
+
+use "$d\dsso_arenas_4_4_back.dta", clear
+replace parcel = "9215A" if _n == 28 & parcel == "9215"
+replace parcel = "9215B" if _n == 38 & parcel == "9215"
+replace parcel = "9215C" if _n == 39 & parcel == "9215"
+save "$d\dsso_arenas_4_4_back.dta", replace
+
+use "$d\dsso_arenas_4_4_front.dta", clear
+replace parcel = "9215A" if _n == 32 & parcel == "9215"
+replace parcel = "9215B" if _n == 42 & parcel == "9215"
+replace parcel = "9215C" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d\dsso_arenas_4_4_front.dta", replace
+
+use "$d\dsso_forston_3_4_back.dta", clear
+replace parcel = "9215A" if _n == 38 & parcel == "9215"
+replace parcel = "9215B" if _n == 39 & parcel == "9215"
+save "$d\dsso_forston_3_4_back.dta", replace
+
+use "$d\dsso_forston_3_4_front.dta", clear
+replace parcel = "9215A" if _n == 42 & parcel == "9215"
+replace parcel = "9215B" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d\dsso_forston_3_4_front.dta", replace
+
+use "$d\dsso_fuentes_2_4_back.dta", clear
+replace parcel = "9215A" if _n == 38 & parcel == "9215"
+replace parcel = "9215B" if _n == 39 & parcel == "9215"
+save "$d\dsso_fuentes_2_4_back.dta", replace
+
+use "$d2\dsso_fuentes_2_4B_front.dta", clear
+replace parcel = "9215A" if _n == 42 & parcel == "9215"
+replace parcel = "9215B" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d2\dsso_fuentes_2_4B_front.dta", replace
+
+use "$d\dsso_gomez_3_4_back.dta", clear
+replace parcel = "9215A" if _n == 38 & parcel == "9215"
+replace parcel = "9215B" if _n == 39 & parcel == "9215"
+save "$d\dsso_gomez_3_4_back.dta", replace
+
+use "$d\dsso_gomez_3_4_front.dta", clear
+replace parcel = "9215A" if _n == 42 & parcel == "9215"
+replace parcel = "9215B" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d\dsso_gomez_3_4_front.dta", replace
+
+use "$d\dsso_jones_1_4_back.dta", clear
+replace parcel = "9215A" if _n == 28 & parcel == "9215"
+replace parcel = "9215B" if _n == 38 & parcel == "9215"
+replace parcel = "9215C" if _n == 39 & parcel == "9215"
+save "$d\dsso_jones_1_4_back.dta", replace
+
+use "$d\dsso_jones_1_4_front.dta", clear
+replace parcel = "9215A" if _n == 32 & parcel == "9215"
+replace parcel = "9215B" if _n == 42 & parcel == "9215"
+replace parcel = "9215C" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d\dsso_jones_1_4_front.dta", replace
+
+use "$d\dsso_topete_4_4_back.dta", clear
+replace parcel = "9215A" if _n == 28 & parcel == "9215"
+replace parcel = "9215B" if _n == 38 & parcel == "9215"
+replace parcel = "9215C" if _n == 39 & parcel == "9215"
+save "$d\dsso_topete_4_4_back.dta", replace
+
+use "$d\dsso_topete_4_4_front.dta", clear
+replace parcel = "9215A" if _n == 32 & parcel == "9215"
+replace parcel = "9215B" if _n == 42 & parcel == "9215"
+replace parcel = "9215C" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d\dsso_topete_4_4_front.dta", replace
+
+
+use "$d\dsso_tovar_2_4A_back.dta", clear
+replace parcel = "9215A" if _n == 28 & parcel == "9215"
+replace parcel = "9215B" if _n == 38 & parcel == "9215"
+replace parcel = "9215C" if _n == 39 & parcel == "9215"
+save "$d\dsso_tovar_2_4A_back.dta", replace
+
+use "$d\dsso_tovar_2_4B_front.dta", clear
+replace parcel = "9215A" if _n == 32 & parcel == "9215"
+replace parcel = "9215B" if _n == 42 & parcel == "9215"
+replace parcel = "9215C" if _n == 43 & parcel == "9215"
+replace parcel = "9007A" if _n == 30 & parcel == "9007"
+replace parcel = "9007B" if _n == 31 & parcel == "9007"
+save "$d\dsso_tovar_2_4B_front.dta", replace
+
 
 **making one big dataset
 *starting with front of building comparison
@@ -302,6 +484,14 @@ append using "$d2\dsso_tovar_4_2A_back.dta"
 append using "$d2\dsso_tovar_4_2A_front.dta"
 append using "$d2\dsso_tovar_4_2B_back.dta"
 append using "$d2\dsso_tovar_4_2B_front.dta"
+append using "$d\dsso_tovar_2_3A_back.dta"
+append using "$d\dsso_tovar_2_3A_front.dta"
+append using "$d\dsso_tovar_2_3B_back.dta"
+append using "$d\dsso_tovar_2_3B_front.dta"
+append using "$d\dsso_tovar_2_4A_back.dta"
+append using "$d\dsso_tovar_2_4A_front.dta"
+append using "$d\dsso_tovar_2_4B_back.dta"
+append using "$d\dsso_tovar_2_4B_front.dta"
 
 ****ALL FILES IN, now clean
 
@@ -445,6 +635,7 @@ replace syringescount = "-9" if syringesyesno == "N"
 replace dimebagscount = "-9" if dimebagsyesno ==   "N"
 replace condomwrapperporncount = "-9" if condomwrapperpornyesno == "N"
 
+
 **Data Check
 tab `checkvar'count
 tab `checkvar'yesno `checkvar'count
@@ -522,7 +713,6 @@ replace ifyespoolisgreen = "-9" if pool == "N"
 replace ifyesdoesnthavewater = "-9" if pool == "N"
 replace ifyesusedfordumping = "-9" if pool == "N"
 
-
 **single cases that need fixing
 replace graffiticount = "-9" if graffitiyesno == "NO 0"
 replace graffitiyesno = "NO" if graffitiyesno == "NO 0"
@@ -531,9 +721,6 @@ replace securitysystemsign ="N" if securitysystemsign == "NN"
 replace notresspasssign = "-8" if notresspasssign == "8-"
 replace litteryesno = "N" if littercount == "0" & litteryesno == "Y"
 replace littercount = "-9" if littercount == "0"
-*Problem code
-*replace litteryesno = "N" if littercount == "0"
-*replace littercount = "0" if littercount == "-9"
 replace dimebagsyesno = "N" if dimebagscount == "0"
 replace dimebagscount = "-9" if dimebagscount == "0"
 replace dimebagsyesno = "-8" if dimebagsyesno == "SN"
@@ -542,6 +729,8 @@ replace graffitiyesno = "N" if graffitiyesno == "NO 0"
 replace graffitiyesno = "N" if graffitiyesno == "NO"
 replace pillsyesno = "-8" if pillsyesno == "SN"
 replace syringescount = "-8" if syringescount == "5" & syringesyesno == "-8"
+replace syringescount = "-8" if syringescount == "0" & syringesyesno == "-8"
+replace syringescount = "-9" if syringescount == "-8" & syringesyesno == "-9"
 replace blunthashpipecount = "-8" if blunthashpipecount == "5" & blunthashpipeyesno == "-8"
 replace dimebagscount = "-8" if dimebagscount == "5" & dimebagsyesno == "-8"
 replace ifyesfortheshedisitdiy = "-8" if shedinbackyard == "Y" & ifyesfortheshedisitdiy == "NOYES" | ifyesfortheshedisitdiy == "S"
@@ -549,6 +738,7 @@ replace vacantlot = "N" if vacantlot == "ONO"
 replace highhedgesforprivacy = "N" if highhedgesforprivacy == "8NO"
 replace syringesyesno = "-8" if syringescount == "-8" & syringesyesno == "-9"
 replace syringescount = "-8" if syringescount == "0" & syringesyesno == "-8"
+replace syringescount = "-8" if syringescount == "5" & syringesyesno == "-8"
 replace dimebagscount = "-8" if dimebagscount == "8" & dimebagsyesno == "-8"
 replace ifyesfortheshedisitdiy = "-8" if ifyesfortheshedisitdiy == "-9" & shedinbackyard == "-8"
 replace ifyesfortheshedisitdiy = "-8" if ifyesfortheshedisitdiy == "-9" & shedinbackyard == "Y"
@@ -563,6 +753,11 @@ replace ifyesdoesnthavewater = "-8" if ifyesdoesnthavewater == "-9" & pool == "-
 replace ifyesdoesnthavewater = "-8" if ifyesdoesnthavewater == "-9" & pool == "Y"
 replace ifyesusedfordumping = "-8" if ifyesusedfordumping == "-9" & pool == "-8"
 replace ifyesusedfordumping = "-8" if ifyesusedfordumping == "-9" & pool == "Y"
+
+
+*Handle missing/blank mismatch
+replace syringescount = "-8" if syringescount == "" & syringesyesno == "-8"
+replace syringesyesno = "-8" if syringesyesno == "" & syringescount == "-8"
 
 *photograph shaded
 rename significantportionsofthephot shade
@@ -586,11 +781,32 @@ foreach v in littercount graffiticount liquorbottlescount cigtobaccocount pillsc
 
 order timepoint zone faceblock parcel coder front problem problemnotes
 
-**Data Check
-tab `checkvar'count
-tab `checkvar'yesno `checkvar'count
-tab shedinbackyard ifyesfortheshedisitdiy
-tab shedinbackyard ifyesfortheshedisitpref
+*Data Check
+tab `checkvar'count, missing
+tab `checkvar'yesno `checkvar'count, missing
+tab shedinbackyard ifyesfortheshedisitdiy, missing
+tab shedinbackyard ifyesfortheshedisitpref, missing
+
+*Fix parcel strings
+clonevar parcel_name = parcel
+replace parcel = subinstr(parcel, "Front of ", "", .)
+replace parcel = subinstr(parcel, "Side  of ", "", .)
+replace parcel = subinstr(parcel, "Side of ", "", .)
+
+*Convert coder string into numerical
+encode coder, gen(coderid)
+
+*Include front and back in parcel string
+clonevar parcel_fb = parcel
+replace parcel_fb = "f" + parcel_fb if front == 1
+replace parcel_fb = "b" + parcel_fb if front == 0
+
+*Duplicate detection
+duplicates tag parcel_fb timepoint faceblock coder, gen(dup)
+order dup
+sort dup
+
+duplicates list parcel_fb timepoint faceblock coder
 
 save "$d_out\cleaned drone sso data for missing and cant see values_test.dta", replace
 

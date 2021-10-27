@@ -324,15 +324,15 @@ replace parcel = "9215B" if _n == 41 & parcel == "9215"
 save "$d\dsso_arenas_1_4_front.dta", replace
 
 use "$d\dsso_arenas_4_4_back.dta", clear
-replace parcel = "9215A" if _n == 28 & parcel == "9215"
-replace parcel = "9215B" if _n == 38 & parcel == "9215"
-replace parcel = "9215C" if _n == 39 & parcel == "9215"
+replace parcel = "9015" if _n == 28 & parcel == "9215"
+replace parcel = "9215A" if _n == 38 & parcel == "9215"
+replace parcel = "9215B" if _n == 39 & parcel == "9215"
 save "$d\dsso_arenas_4_4_back.dta", replace
 
 use "$d\dsso_arenas_4_4_front.dta", clear
-replace parcel = "9215A" if _n == 32 & parcel == "9215"
-replace parcel = "9215B" if _n == 42 & parcel == "9215"
-replace parcel = "9215C" if _n == 43 & parcel == "9215"
+replace parcel = "9015" if _n == 32 & parcel == "9215"
+replace parcel = "9215A" if _n == 42 & parcel == "9215"
+replace parcel = "9215B" if _n == 43 & parcel == "9215"
 replace parcel = "9007A" if _n == 30 & parcel == "9007"
 replace parcel = "9007B" if _n == 31 & parcel == "9007"
 save "$d\dsso_arenas_4_4_front.dta", replace
@@ -374,44 +374,44 @@ replace parcel = "9007B" if _n == 31 & parcel == "9007"
 save "$d\dsso_gomez_3_4_front.dta", replace
 
 use "$d\dsso_jones_1_4_back.dta", clear
-replace parcel = "9215A" if _n == 28 & parcel == "9215"
-replace parcel = "9215B" if _n == 38 & parcel == "9215"
-replace parcel = "9215C" if _n == 39 & parcel == "9215"
+replace parcel = "9015" if _n == 28 & parcel == "9215"
+replace parcel = "9215A" if _n == 38 & parcel == "9215"
+replace parcel = "9215B" if _n == 39 & parcel == "9215"
 save "$d\dsso_jones_1_4_back.dta", replace
 
 use "$d\dsso_jones_1_4_front.dta", clear
-replace parcel = "9215A" if _n == 32 & parcel == "9215"
-replace parcel = "9215B" if _n == 42 & parcel == "9215"
-replace parcel = "9215C" if _n == 43 & parcel == "9215"
+replace parcel = "9015" if _n == 32 & parcel == "9215"
+replace parcel = "9215A" if _n == 42 & parcel == "9215"
+replace parcel = "9215B" if _n == 43 & parcel == "9215"
 replace parcel = "9007A" if _n == 30 & parcel == "9007"
 replace parcel = "9007B" if _n == 31 & parcel == "9007"
 save "$d\dsso_jones_1_4_front.dta", replace
 
 use "$d\dsso_topete_4_4_back.dta", clear
-replace parcel = "9215A" if _n == 28 & parcel == "9215"
-replace parcel = "9215B" if _n == 38 & parcel == "9215"
-replace parcel = "9215C" if _n == 39 & parcel == "9215"
+replace parcel = "9015" if _n == 28 & parcel == "9215"
+replace parcel = "9215A" if _n == 38 & parcel == "9215"
+replace parcel = "9215B" if _n == 39 & parcel == "9215"
 save "$d\dsso_topete_4_4_back.dta", replace
 
 use "$d\dsso_topete_4_4_front.dta", clear
-replace parcel = "9215A" if _n == 32 & parcel == "9215"
-replace parcel = "9215B" if _n == 42 & parcel == "9215"
-replace parcel = "9215C" if _n == 43 & parcel == "9215"
+replace parcel = "9015" if _n == 32 & parcel == "9215"
+replace parcel = "9215A" if _n == 42 & parcel == "9215"
+replace parcel = "9215B" if _n == 43 & parcel == "9215"
 replace parcel = "9007A" if _n == 30 & parcel == "9007"
 replace parcel = "9007B" if _n == 31 & parcel == "9007"
 save "$d\dsso_topete_4_4_front.dta", replace
 
 
 use "$d\dsso_tovar_2_4A_back.dta", clear
-replace parcel = "9215A" if _n == 28 & parcel == "9215"
-replace parcel = "9215B" if _n == 38 & parcel == "9215"
-replace parcel = "9215C" if _n == 39 & parcel == "9215"
+replace parcel = "9015" if _n == 28 & parcel == "9215"
+replace parcel = "9215A" if _n == 38 & parcel == "9215"
+replace parcel = "9215B" if _n == 39 & parcel == "9215"
 save "$d\dsso_tovar_2_4A_back.dta", replace
 
 use "$d\dsso_tovar_2_4B_front.dta", clear
-replace parcel = "9215A" if _n == 32 & parcel == "9215"
-replace parcel = "9215B" if _n == 42 & parcel == "9215"
-replace parcel = "9215C" if _n == 43 & parcel == "9215"
+replace parcel = "9015" if _n == 32 & parcel == "9215"
+replace parcel = "9215A" if _n == 42 & parcel == "9215"
+replace parcel = "9215B" if _n == 43 & parcel == "9215"
 replace parcel = "9007A" if _n == 30 & parcel == "9007"
 replace parcel = "9007B" if _n == 31 & parcel == "9007"
 save "$d\dsso_tovar_2_4B_front.dta", replace

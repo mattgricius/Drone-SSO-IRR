@@ -808,6 +808,10 @@ sort dup
 
 duplicates list parcel_fb timepoint faceblock coder
 
+*Add checks for consistency
+tab faceblock timepoint
+tab parcel timepoint
+
 save "$d_out\cleaned drone sso data for missing and cant see values_test.dta", replace
 
 do "$work_dir\Data consistency.do"

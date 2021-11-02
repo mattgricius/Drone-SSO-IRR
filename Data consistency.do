@@ -13,11 +13,11 @@ local varlist "paintinpoorcondition newlypainted structuraladaptationsasattach s
 
 
 foreach var in `varlistcount' {
-	tab `var'yesno `var'count
-	*tab `var'yesno `var'count, missing
+	*tab `var'yesno `var'count
+	tab `var'yesno `var'count, missing
 }
 
 foreach var in `varlist' {
-	tab `var'
-	*tab `var', missing
+	*tab `var'
+	tab `var', missing
 }

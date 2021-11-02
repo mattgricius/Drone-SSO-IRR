@@ -754,10 +754,31 @@ replace ifyesdoesnthavewater = "-8" if ifyesdoesnthavewater == "-9" & pool == "Y
 replace ifyesusedfordumping = "-8" if ifyesusedfordumping == "-9" & pool == "-8"
 replace ifyesusedfordumping = "-8" if ifyesusedfordumping == "-9" & pool == "Y"
 
-
 *Handle missing/blank mismatch
 replace syringescount = "-8" if syringescount == "" & syringesyesno == "-8"
 replace syringesyesno = "-8" if syringesyesno == "" & syringescount == "-8"
+replace graffiticount = "-8" if graffiticount == "" & graffitiyesno == "-8"
+replace graffitiyesno = "-8" if graffitiyesno == "" & graffiticount == "0"
+replace graffiticount = "-8" if graffiticount == "0" & graffitiyesno == "-8"
+replace paintedovergraffiticount = "-8" if paintedovergraffiticount == "" & paintedovergraffitiyesno == "-8"
+replace paintedovergraffitiyesno = "-8" if paintedovergraffitiyesno == "" & paintedovergraffiticount == "0"
+replace paintedovergraffiticount = "-8" if paintedovergraffiticount == "0" & paintedovergraffitiyesno == "-8"
+replace liquorbottlescount = "-8" if liquorbottlescount == "" & liquorbottlesyesno == "-8"
+replace liquorbottlesyesno = "-8" if liquorbottlesyesno == "" & liquorbottlescount == "-8"
+replace liquorbottlesyesno = "-8" if liquorbottlesyesno == "" & liquorbottlescount == "0"
+replace liquorbottlescount = "-8" if liquorbottlescount == "0" & liquorbottlesyesno == "-8"
+replace cigtobaccocount = "-8" if cigtobaccocount == "" & cigtobaccoyesno == "-8"
+replace cigtobaccoyesno = "-8" if cigtobaccoyesno == "" & cigtobaccocount == "-8"
+replace pillscount = "-8" if pillscount == "" & pillsyesno == "-8"
+replace pillsyesno = "-8" if pillsyesno == "" & pillscount == "-8"
+replace blunthashpipecount = "-8" if blunthashpipecount == "" & blunthashpipeyesno == "-8"
+replace blunthashpipeyesno = "-8" if blunthashpipeyesno == "" & blunthashpipecount == "-8"
+replace dimebagscount = "-8" if dimebagscount == "" & dimebagsyesno == "-8"
+replace dimebagsyesno = "-8" if dimebagsyesno == "" & dimebagscount == "-8"
+replace condomwrapperporncount = "-8" if condomwrapperporncount == "" & condomwrapperpornyesno == "-8"
+replace condomwrapperpornyesno = "-8" if condomwrapperpornyesno == "" & condomwrapperporncount == "-8"
+replace condomwrapperpornyesno = "-8" if condomwrapperpornyesno == "" & condomwrapperporncount == "0"
+replace condomwrapperporncount = "-8" if condomwrapperporncount == "0" & condomwrapperpornyesno == "-8"
 
 *photograph shaded
 rename significantportionsofthephot shade
@@ -815,4 +836,5 @@ tab parcel timepoint
 save "$d_out\cleaned drone sso data for missing and cant see values_test.dta", replace
 
 do "$work_dir\Data consistency.do"
+do "$work_dir\irr data prep.do"
 

@@ -24,7 +24,7 @@ global d_out "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability
 use "$d_out\cleaned drone sso data for missing and cant see values_test.dta", clear
 drop problemnotes dup notes
 
-local pple forston fuentes gomez graham herrera jones topete tovar zhao arenas
+local pple forston fuentes gomez graham herrera jones topete tovar zhao arenas parker
 local frontback front back
 foreach n in `pple' {
 	forvalues z=1(1)4 {
@@ -40,7 +40,8 @@ foreach n in `pple' {
 				keep if timepoint == "`b'" & zone == "`z'" & front == 0 & coder == "`n'"
 				}
 				if timepoint == "`b'" {
-				export delimited "$d_out\audit\dsso_`n'_`z'_`b'_`y'_audit.csv", replace
+				drop timepoint zone coder problem front
+				export delimited "$d_out\audit\dsso_`n'_`b'_`z'_`y'_audit.csv", replace
 				}
 				*save "$d_out\audit\dsso_`n'_`z'_`b'_`y'_audit.dta", replace
 				restore

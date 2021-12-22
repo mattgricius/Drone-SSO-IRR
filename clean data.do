@@ -516,6 +516,32 @@ drop bc-bd
 
 drop be
 
+*create original audit files
+local pple forston fuentes gomez graham herrera jones topete tovar zhao arenas parker
+local frontback front back
+foreach n in `pple' {
+	forvalues z=1(1)4 {
+
+		forvalues b=1(1)4 {
+		
+			foreach y in `frontback' {
+				preserve
+				if `y' == front {
+				keep if timepoint == "`b'" & zone == "`z'" & front == 1 & coder == "`n'"
+				}
+				else {
+				keep if timepoint == "`b'" & zone == "`z'" & front == 0 & coder == "`n'"
+				}
+				if timepoint == "`b'" {
+				export delimited "$d_out\audit\originals\dsso_`n'_`b'_`z'_`y'_audit_og.csv", replace
+				}
+				restore
+			}
+		}
+	}
+}
+
+
 *identify problem codes (things you can't logically sort out) here
 gen problem = 0
 replace problem = 1 if ifyespoolisgreen == "22-DEC"

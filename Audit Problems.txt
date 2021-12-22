@@ -1,0 +1,22 @@
+a_1_4_f: securitysystem NN/-8
+a_3_1_b: codomwrappercount
+gomez_3_2_b: -9 for litteryesno
+graham_4_3_b & graham_2_1_b: "SN"/pillsyesno -8/ dimebag -8
+graham_4_3_f: syringeyesno -8
+jones_3_3_b: shed -8 but rest -9
+topete_4_3_front: paintedover missing/-8
+topete_4_4_back: liquor & condom missing/-8
+tovar_2_4_back: ifyesbarn missing
+tovar_2_4_front: shed ifyes missing
+tovar_3_1_back & front: shed and bard ifyes missing
+
+Missing original codesheet:
+tovar_3_3_back
+herrera_4_3_back
+jones_2_3_back
+jones_4_3_back
+
+Not imported:
+parker_1_1_front
+
+Alleyway?

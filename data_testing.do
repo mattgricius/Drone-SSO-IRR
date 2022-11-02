@@ -3,7 +3,6 @@ clear
 log close _all
 **If set to 1 use matt anything else will run dani
 global user_matt 1
-ZAS
 **Directory locations**
 if $user_matt == 1 {
 **Matt**
@@ -18,4 +17,19 @@ global d "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Dro
 global d2 "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\Cleaned drone sso data to be used for IRR\Bring in Separately"
 global d_out "C:\Users\dmwalla3\Dropbox\UAS and SSO Study\Interrater Reliability Drone Imagery SSO\"
 }
-use "$d_out\cleaned drone sso data for missing and cant see values_test.dta", clear
+use "$d_out\drone_sso_irr.dta", clear
+gen identifier = timepoint + "." + faceblock + "." + frontback
+levelsof faceblock, local(fb)
+levelsof parcel, local(p)
+local x front back
+local varlist litteryesno littercount graffittiyesno graffiticount
+forval t=1/4 {
+	foreach i in `fb' {
+		foreach l in `x' {
+			foreach v in `varlist'{
+				kap `v'1 `v'2 if identifier == "`t'.`i'.`l'"
+			}
+		}
+	}
+}
+		
